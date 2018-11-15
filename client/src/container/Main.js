@@ -20,6 +20,7 @@ class Main extends Component {
     this.prevPage = this.prevPage.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.submit = this.submit.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
 
@@ -33,6 +34,12 @@ class Main extends Component {
 
   handleChange(event) {
     this.setState({ value: event.target.value });
+  }
+
+  handleKeyPress(event) {
+    if (event.key === 'Enter') {
+      this.submit();
+    }
   }
 
   submit() {
@@ -57,12 +64,13 @@ class Main extends Component {
                 <input class="form-control form-control-lg form-control-borderless"
                   type="search"
                   placeholder="Search"
+                  onKeyPress={this.handleKeyPress}
                   value={this.state.valuex}
                   onChange={this.handleChange} />
               </div>
 
               <div class="col-3">
-                <button class="btn btn-lg btn-success" type="submit" onClick={this.submit}>Search</button>
+                <button class="btn btn-lg btn-success" type="submit" onClick={this.submit} >Search</button>
               </div>
 
               <div class="col-3">
