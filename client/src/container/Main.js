@@ -1,34 +1,45 @@
 import React, { Component } from 'react';
-import KNlogo from '../assets/KN-logo.png';
 import kn from '../assets/kn.png';
 import '../css/App.css';
-import Person from './people/Person'
+import PeopleDeck from './people/PeopleDeck'
 
-import callGet from './people/PeopleAPI'
-
-import { Navbar, Container, CardDeck } from 'reactstrap';
-
+import { Navbar } from 'reactstrap';
 
 class Main extends Component {
-  state = {
-    isLoading: true,
-    people: []
-  };
-  async componentDidMount() {
-    await callGet().then((result) => {
-      const body = result;
-      this.setState({ people: body, isLoading: false });
-    },
-      (error) => {
-        this.setState({
-          isLoading: false,
-          error
-        });
-      }
-    );
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      actualPage: 1,
+      value: '',
+      newValue: ''
+    };
+
+    this.nextPage = this.nextPage.bind(this);
+    this.prevPage = this.prevPage.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.submit = this.submit.bind(this);
   }
+
+
+  nextPage() {
+    this.setState({ actualPage: this.state.actualPage + 1 });
+  }
+
+  prevPage() {
+    this.setState({ actualPage: this.state.actualPage - 1 });
+  }
+
+  handleChange(event) {
+    this.setState({ value: event.target.value });
+  }
+
+  submit() {
+    this.setState({ newValue: this.state.value, actualPage: 1 })
+  }
+
   render() {
-    const { people, isLoading } = this.state;
 
     return (
       <div className="Main">
@@ -38,21 +49,32 @@ class Main extends Component {
         </Navbar>
 
         <div class="container">
-          <div class="row justify-content-md-center">
 
-            {people.map(person => {
-              console.log(person)
-              return (
-                <div class="col-3">
-                  <Person data={person} />
-                </div>
-              );
-            }
-            )}
+          <div class="row ">
+            <div class="card-body row no-gutters align-items-center justify-content-between">
+              <div class="col">
 
+                <input class="form-control form-control-lg form-control-borderless"
+                  type="search"
+                  placeholder="Search"
+                  value={this.state.valuex}
+                  onChange={this.handleChange} />
+              </div>
+
+              <div class="col-3">
+                <button class="btn btn-lg btn-success" type="submit" onClick={this.submit}>Search</button>
+              </div>
+
+              <div class="col-3">
+                <input class="btn btn-secondary btn-fluid" type="button" value="previous page" disabled={this.state.actualPage === 1} onClick={this.prevPage} />
+                <input class="btn btn-secondary btn-fluid" type="button" value="previous page" onClick={this.nextPage} />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <PeopleDeck newPage={this.state.actualPage} nameFilter={this.state.newValue} />
           </div>
         </div >
-
       </div >
     );
   }

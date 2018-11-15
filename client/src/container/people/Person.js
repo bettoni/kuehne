@@ -11,10 +11,10 @@ class Person extends Component {
 
         return (
 
-            <Card>
+            <Card className="card-fluid">
                 <CardImg top  width="100%"  src={data.photoUrl} />
                 <CardBody>
-                    <CardTitle>{data.name}</CardTitle>
+                    <CardTitle className="text-center">{data.name}</CardTitle>
                 </CardBody>
             </Card>
 
