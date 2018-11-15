@@ -29,7 +29,7 @@ public class PersonApiListApplicationTests {
 
     @Test
     public void should_return_a_list_of_person() throws Exception {
-        MockHttpServletResponse response = mockMvc.perform(get("/people?page_size=1&page=1")).andReturn().getResponse();
+        MockHttpServletResponse response = mockMvc.perform(get("/api/people?page_size=1&page=1")).andReturn().getResponse();
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(HOMER).isEqualTo(objectFrom(response.getContentAsString()));
