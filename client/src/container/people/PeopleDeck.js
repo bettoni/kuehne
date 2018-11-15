@@ -46,7 +46,7 @@ class PeopleDeck extends Component {
         }
 
         if (this.state.isError) {
-            return <div>error</div>;
+            return <div class="alert alert-danger" >couldn't connect to server</div>;
         }
 
         const people = this.state.people;
