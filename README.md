@@ -26,9 +26,17 @@ localhost:8080/api/people?name=homer
 
   * JDK 8+
   * Maven 3.3.9+
+  * Node.js 8+
+  * yarn
 
 ## Running this service
 
 ```bash
   >> mvn spring-boot:run
+```
+## Running the client
+To run the client, cd into the ```client``` folder and run:
+
+```bash
+  >> yarn && yarn start
 ```
